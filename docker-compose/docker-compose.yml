@@ -1,0 +1,32 @@
+services:
+  web:
+    image: ghcr.io/kowalskipiotr98/ludivault-web:latest
+    restart: unless-stopped
+    depends_on: [api]
+
+  api:
+    image: ghcr.io/kowalskipiotr98/ludivault-api:latest
+    restart: unless-stopped
+    depends_on: [postgres]
+    environment:
+      LUDIVAULT_DB: "host=postgres user=ludivault dbname=ludivault password=<REPLACE> sslmode=disable"
+      GIN_MODE: release
+
+  postgres:
+    image: postgres:17
+    volumes:
+      - ./pg-data-17:/var/lib/postgresql/data
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ludivault
+      POSTGRES_PASSWORD: <REPLACE>
+      POSTGRES_DB: ludivault
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    restart: unless-stopped
+    depends_on: [api, web]
+    ports:
+      - "127.0.0.1:8080:80"
