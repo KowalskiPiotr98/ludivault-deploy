@@ -10,7 +10,41 @@ services:
     depends_on: [postgres]
     environment:
       LUDIVAULT_DB: "host=postgres user=ludivault dbname=ludivault password=<REPLACE> sslmode=disable"
+      LUDIVAULT_BASE_ADDRESS: "<CHANGE TO YOUR APP URL> https://ludivault.local/"
+      LUDIVAULT_SESSION_KEY: "<REPLACE BY YOUR OWN SECURE STRING>"
       GIN_MODE: release
+
+      #You MUST enable at least one identity provider, otherwise the app will not start
+      #More details in backend repo readme
+
+      ### GITEA ###
+      #LUDIVAULT_SSO_GITEA_CLIENT_ID:
+      #LUDIVAULT_SSO_GITEA_CLIENT_SECRET:
+      #LUDIVAULT_SSO_GITEA_URL:
+
+      ### Twitch ###
+      #LUDIVAULT_SSO_TWITCH_CLIENT_ID:
+      #LUDIVAULT_SSO_TWITCH_CLIENT_SECRET:
+
+      ### GitHub ###
+      #LUDIVAULT_SSO_GITHUB_CLIENT_ID:
+      #LUDIVAULT_SSO_GITHUB_CLIENT_SECRET:
+
+      ### Discord ###
+      #LUDIVAULT_SSO_DISCORD_CLIENT_ID:
+      #LUDIVAULT_SSO_DISCORD_CLIENT_SECRET:
+
+      ### Google ###
+      #LUDIVAULT_SSO_GOOGLE_CLIENT_ID:
+      #LUDIVAULT_SSO_GOOGLE_CLIENT_SECRET;
+
+      ### Steam ###
+      #LUDIVAULT_SSO_STEAM_CLIENT_SECRET:
+
+      ### Custom OIDC provider ###
+      #LUDIVAULT_SSO_OIDC_CLIENT_ID:
+      #LUDIVAULT_SSO_OIDC_CLIENT_SECRET:
+      #LUDIVAULT_SSO_OIDC_DISCOVERY_URL:
 
   postgres:
     image: postgres:17

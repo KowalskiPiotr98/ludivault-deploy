@@ -26,6 +26,13 @@ spec:
                   key: POSTGRES_CONNECTION_STRING
             - name: GIN_MODE
               value: release
+            - name: LUDIVAULT_BASE_ADDRESS
+              value: "<SET TO PUBLIC BASE ADDRESS> https://ludivault.local/"
+            - name: LUDIVAULT_SESSION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sso-data
+                  key: LUDIVAULT_SESSION_KEY
 
 ---
 apiVersion: v1
